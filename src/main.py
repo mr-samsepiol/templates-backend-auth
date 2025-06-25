@@ -23,6 +23,7 @@ if not DATABASE_URL:
 if not SECRET_KEY:
     raise RuntimeError("SECRET_KEY no está definido en el entorno")
 
+print("ORIGIN:", ORIGIN)  # debug
 print("DATABASE_URL:", DATABASE_URL)  # debug
 print("SECRET_KEY:", SECRET_KEY)  # debug
 
