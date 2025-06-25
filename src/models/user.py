@@ -30,7 +30,7 @@ class User(db.Model):
         return check_password_hash(self.password, password)
     
     def create_access_token(self):
-        return create_access_token(identity={'id': self.id})
+        return create_access_token(identity=self.email)
     
     def to_dict(self):
         return {

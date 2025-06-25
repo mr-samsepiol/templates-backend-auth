@@ -24,8 +24,8 @@ def initial_data():
                 contact_person=contact_person
             )
 
-        imass = create_company("APP", "APP150515", "IT", "456 APP St, Mexico City", "555-5678", "Jane Doe")
-        db.session.add_all([imass])
+        APP = create_company("APP", "APP150515", "IT", "456 APP St, Mexico City", "555-5678", "Jane Doe")
+        db.session.add_all([APP])
         db.session.flush()
 
         click.echo("👥 Creando usuarios")
@@ -37,7 +37,8 @@ def initial_data():
                 company_id=company_id
             )
 
-        sys_user = create_user("user", "user@ap.com", imass.id)
+        sys_user = create_user("jhondoe", "jhondoe@domain.example", APP.id)
+        sys_user = create_user("janedoe", "janedoe@domain.example", APP.id)
         db.session.add_all([sys_user])
         db.session.flush()
 
