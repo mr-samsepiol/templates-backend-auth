@@ -1,0 +1,45 @@
+from src.main import app
+from src.models import db, User, Company
+import click
+
+from werkzeug.security import generate_password_hash
+
+def initial_data():
+    with app.app_context():
+        click.echo("✏ Escribiendo datos iniciales...")
+
+        click.echo("🗑 Limpiando datos anteriores...")
+        User.query.delete()
+        Company.query.delete()
+        db.session.commit()
+
+        click.echo("🏢 Creando compañías: APP")
+        def create_company(name, rfc, industry, address, phone, contact_person):
+            return Company(
+                name=name,
+                rfc=rfc,
+                industry=industry,
+                address=address,
+                phone=phone,
+                contact_person=contact_person
+            )
+
+        imass = create_company("APP", "APP150515", "IT", "456 APP St, Mexico City", "555-5678", "Jane Doe")
+        db.session.add_all([imass])
+        db.session.flush()
+
+        click.echo("👥 Creando usuarios")
+        def create_user(username, email, company_id):
+            return User(
+                username=username,
+                email=email,
+                password=generate_password_hash("123456"),
+                company_id=company_id
+            )
+
+        sys_user = create_user("user", "user@ap.com", imass.id)
+        db.session.add_all([sys_user])
+        db.session.flush()
+
+        db.session.commit()
+        click.echo("✅ Datos iniciales escritos correctamente.")
