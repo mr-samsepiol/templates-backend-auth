@@ -37,9 +37,9 @@ def initial_data():
                 company_id=company_id
             )
 
-        sys_user = create_user("jhondoe", "jhondoe@domain.example", APP.id)
-        sys_user = create_user("janedoe", "janedoe@domain.example", APP.id)
-        db.session.add_all([sys_user])
+        jhondoe = create_user("jhondoe", "jhondoe@domain.example", APP.id)
+        janedoe = create_user("janedoe", "janedoe@domain.example", APP.id)
+        db.session.add_all([jhondoe, janedoe])
         db.session.flush()
 
         db.session.commit()
